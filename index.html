@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <h1>Tic -Tac - Toe</h1>
+  <div id="playersInput">
+    <input type="text" placeholder="player 1" id="player1" />
+    <input type="text" placeholder="player 2" id="player2" />
+    <input type="number" placeholder="size" id="size" />
+  </div>
+
+  <div>
+    <div id="coin">
+      <button id="toss-button" type="button" onclick="flipCoin()">Toss</button>
+      <div id = "toss-result-div">
+        <span id="toss-result"></span>
+        <span id="extra-text"><span>
+      </div>
+      
+    </div>
+
+    <div id="symbol-div">
+      <label for="symbol">Choose:</label>
+      <div>
+          <select name="symbols" id="symbols">
+              <option value=0>X</option>
+              <option value=1>O</option>
+          </select>
+      </div>
+      
+    </div>
+    <div id="player-data">
+    </div>
+    <div id = "buttons">
+        <button id="reset-button" onclick="newTicTacToe.resetGame()">Reset</button>
+        <button id="play-button" onclick="newTicTacToe.startGame()">Start</button>
+    </div>
+    
+  </div>
+
+  <div id = "turn"></div>
+  
+  <div>
+    <div id="grid"></div>
+  </div>
+  
+
+  <script src="./src/ticTacToe.js"></script>
+  <script src="./src/coinFlip.js"></script>
+</body>
+
+</html>
