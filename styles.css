@@ -7,6 +7,7 @@ body{
   width: 100vw; 
   height: 100vh;
   color:#950740;
+
 }
 h1{
   margin-bottom: 20px;
@@ -29,7 +30,7 @@ h1{
   background-color: #ADADAD;
 }
 .gridCell:hover{
-  background-color: #557A95;
+  background-color: black;
 }
 #playersInput{
   display: inline-flex;

@@ -76,10 +76,12 @@ function TicTacToe(){
         let currentCell = document.getElementById(e.target.id);
         if (currentPlayer === tossWinner) {
             currentCell.innerHTML = (choosenSymbol === "0" ?"X":"O");
+            currentCell.style.color = "green";
         }
     
         else {
             currentCell.innerHTML = (choosenSymbol === "0" ?"O":"X");
+            currentCell.style.color = "yellow";
         }
         if(clicked.length === (size*size) && !checkWinnerCondition() && winnersList.length === 0){
             document.getElementById('player-data').innerHTML = `Game Draw!`;
@@ -104,7 +106,12 @@ function TicTacToe(){
             }
                 
         }else{
-            return;
+            if(currentPlayer === contestants[0]){
+                currentPlayer = contestants[1];
+            }else if(currentPlayer === contestants[1]){
+                currentPlayer = contestants[0];
+            }
+            document.getElementById('turn').innerHTML = `${currentPlayer}'s turn`;
         }
     }
     
@@ -136,41 +143,31 @@ function TicTacToe(){
                 diagonalSum[2]--;
             }
         }
-        for(let i =0;i<=size;i++){
-            if(rowSum[i] === size || rowSum[i] === (-1 * size)){
-                isWinner = true;
-                break;
-            }
-            if(columnSum[i] === size || columnSum[i] === (-1 * size)){
-                isWinner = true;
-                break;
-            }
-        
+        //check for just that column and row.
+        if(rowSum[rowIndex] === size || rowSum[rowIndex] === (-1 * size)){
+            isWinner = true;
         }
+        else if(columnSum[columnIndex] === size || columnSum[columnIndex] === (-1 * size)){
+            isWinner = true;
+        }
+       else{
+            for(let i =1;i<=2;i++){
+                if(diagonalSum[i] === size || diagonalSum[i] === (-1 * size)){
+                    isWinner = true;
+                    break;
+                }
+            }
+       }
+        
 
-        for(let i =1;i<=2;i++){
-            if(diagonalSum[i] === size || diagonalSum[i] === (-1 * size)){
-                isWinner = true;
-                break;
-            }
+        if(isWinner && currentPlayer === tossWinner){
+            currentWinner = tossWinner;
+            winnersList.push("p1");
         }
-        
-        if (currentPlayer === tossWinner){
-            if(isWinner){
-                currentWinner = tossWinner;
-                winnersList.push("p1");
-            }
-            
-            currentPlayer = contestants[1];
-        }else{
-            if(isWinner){
-                currentWinner = contestants[1];
-                winnersList.push("p2");
-            }
-            
-            currentPlayer = tossWinner;
+        else if(isWinner && currentPlayer === contestants[1]){
+            currentWinner = contestants[1];
+            winnersList.push("p2");
         }
-        document.getElementById('turn').innerHTML = `${currentPlayer}'s turn`;
     
         return isWinner;
     }
@@ -189,8 +186,12 @@ function TicTacToe(){
     }
     
     this.resetGame = function(){
+      tossWinner = "";
+      size = 0;
+      contestants = [];
+      choosenSymbol = "";
       clicked = [];
-      currentPlayer = 0;
+      currentPlayer = "";
       currentWinner = "";
       winnersList = [];
       rowSum = [];
@@ -200,7 +201,7 @@ function TicTacToe(){
       document.getElementById('grid').innerHTML = "";
       document.getElementById('player1').value = "";
       document.getElementById('player2').value = "";
-      document.getElementById('size').value = "";
+      document.getElementById('size').value = 0;
       document.getElementById("playersInput").style.display = "inline-flex";
       document.getElementById('player-data').innerHTML = "";
       document.getElementById('toss-button').style.display = "";
